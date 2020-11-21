@@ -23,7 +23,7 @@ namespace CRUD.Repositories
         using (var connection = conexao.Connection())
         {
           connection.Open();
-          var query = "Select pe.* from Pet pe inner join Pessoa p ON pe.PessoaId = p.Id";
+          var query = "Select pe.Id, pe.Nome, pe.Adotado, pe.PessoaId, p.Nome from Pet pe inner join Pessoa p ON pe.PessoaId = p.Id group by p.Nome, pe.Id, pe.Nome, pe.Adotado, pe.PessoaId";
 
           return await connection.QueryAsync<Pet>(query);
         }
@@ -41,7 +41,7 @@ namespace CRUD.Repositories
         using (var connection = conexao.Connection())
         {
           connection.Open();
-          var query = "Select pe.* from Pet pe inner join Pessoa p ON pe.PessoaId = p.Id where pe.Adotado = 1 group by p.Nome";
+          var query = "Select pe.Id, pe.Nome, pe.Adotado, pe.PessoaId, p.Nome from Pet pe inner join Pessoa p ON pe.PessoaId = p.Id where pe.Adotado = 1 group by p.Nome, pe.Id, pe.Nome, pe.Adotado, pe.PessoaId";
 
           return await connection.QueryAsync<Pet>(query);
         }

@@ -42,7 +42,7 @@ namespace CRUD.Repositories.Default
         using (var connection = conexao.Connection())
         {
           connection.Open();
-          var query = "Select p.* from Pessoa p inner join Pet pe ON p.Id = pe.PessoaId where QtdFilho > 0 and p.Id != pe.PessoaId";
+          var query = "Select p.* from Pessoa p left join Pet pe ON pe.PessoaId = p.Id where p.QtdFilho > 0 and pe.PessoaId is null";
 
           return await connection.QueryAsync<Pessoa>(query);
         }
